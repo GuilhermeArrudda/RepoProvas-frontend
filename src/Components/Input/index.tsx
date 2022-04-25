@@ -1,7 +1,6 @@
 import { TextField } from "@mui/material";
 import React from "react";
 
-const styles = { width: "300px" };
 
 interface Props {
   label: string;
@@ -12,7 +11,6 @@ interface Props {
 function Input({ label, value, onChange }: Props) {
   return (
     <TextField
-      sx={styles}
       label={label}
       variant="outlined"
       value={value}
