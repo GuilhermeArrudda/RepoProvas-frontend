@@ -7,14 +7,14 @@ import useAuth from "../../hooks/userContext";
 import * as apiAuth from '../../services/api'
 
 function Login() {
-		const { auth, login } = useAuth()
+		const { user, login } = useAuth()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 		let navigate = useNavigate()
 
 		useEffect(() => {
-			if(auth & auth?.token) {
-				navigate('/disciplines')
+			if(user) {
+				navigate('/home')
 			}
 		})
 
@@ -27,10 +27,9 @@ function Login() {
 
 			apiAuth.login(body)
 				.then(({ data }) => {
-					console.log(data)
 					successModal('login realizado')
 					login(data)
-					navigate('/disciplines')
+					navigate('/home')
 				})
 				.catch(({ request: status }) => {
 					registerError(status)

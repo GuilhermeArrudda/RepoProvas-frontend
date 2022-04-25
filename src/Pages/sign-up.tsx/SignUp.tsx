@@ -7,15 +7,15 @@ import useAuth from "../../hooks/userContext";
 import * as authApi from "../../services/api"
 
 function SignUp() {
-		const { auth, login } = useAuth()
+		const { user, login } = useAuth()
 		const [email, setEmail] = useState('')
 		const [password, setPassword] = useState('')
 		const [confirmPassword, setConfirmPassword] = useState("")
 		let navigate = useNavigate()
 
 		useEffect(() => {
-			if(auth & auth?.token) {
-				navigate('/disciplines')
+			if(user) {
+				navigate('/home')
 			}
 		})
 

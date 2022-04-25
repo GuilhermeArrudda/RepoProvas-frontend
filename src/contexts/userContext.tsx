@@ -7,7 +7,7 @@ export function UserProvider({ children }: any) {
 			localStorage.clear();
 	}
 
-	const persistedUser = JSON.parse(localStorage.getItem("auth") as string)
+	const persistedUser = JSON.parse(localStorage.getItem("user") as string)
 	const [user, setUser] = useState(persistedUser);
 
 	function login(userData: any) {
