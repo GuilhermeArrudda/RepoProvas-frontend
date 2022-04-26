@@ -16,7 +16,8 @@ function Login() {
 			if(user) {
 				navigate('/home')
 			}
-		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [user])
 
 		function handlerSubmit(e: any) {
 			e.preventDefault()

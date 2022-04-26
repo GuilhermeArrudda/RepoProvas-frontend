@@ -18,7 +18,7 @@ function HomePage() {
 		.then((response) => {
 			console.log(response.data)
 		}).catch(err => {
-			alert("You must be logged to acess the page!");
+			alert("You must be logged to acess the page!")
 			navigate('/');
 		})
 	});

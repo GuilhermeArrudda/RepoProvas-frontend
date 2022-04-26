@@ -16,7 +16,6 @@
     "@types/react-dom": "^18.0.2",
     "@types/styled-components": "^5.1.25",
     "axios": "^0.26.1",
-    "dotenv": "^16.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",

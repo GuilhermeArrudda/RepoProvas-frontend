@@ -1,8 +1,6 @@
-import axios from "axios"
+import axios from "axios" 
 
-const { API_BASE_URL } = process.env
-
-const BASE_URL = API_BASE_URL || 'http://localhost:4000'
+const BASE_URL = process.env.REACT_APP_API
 
 function makeConfig (token: string) {
 	const config = {

@@ -7,7 +7,7 @@ import useAuth from "../../hooks/userContext";
 import * as authApi from "../../services/api"
 
 function SignUp() {
-		const { user, login } = useAuth()
+		const { user } = useAuth()
 		const [email, setEmail] = useState('')
 		const [password, setPassword] = useState('')
 		const [confirmPassword, setConfirmPassword] = useState("")
@@ -15,7 +15,7 @@ function SignUp() {
 
 		useEffect(() => {
 			if(user) {
-				navigate('/home')
+				navigate('/')
 			}
 		})
 
@@ -33,9 +33,8 @@ function SignUp() {
 			}
 
 			authApi.signUp(body)
-				.then(({ data }) => {
+				.then(() => {
 					successModal('Cadastro realizado')
-					login(data)
 					navigate('/')
 				})
 				.catch(({ request: status }) => {
