@@ -39,3 +39,23 @@ export function getTermsContent(token: string) {
 	const config = makeConfig(token);
 	return axios.get(`${BASE_URL}/content/terms`, config);
 }
+
+export function getCategoriesList(token: any) {
+	const config = makeConfig(token);
+	return axios.get(`${BASE_URL}/content/categories`, config);
+}
+
+export function getDisciplinesList(token: any) {
+	const config = makeConfig(token);
+	return axios.get(`${BASE_URL}/content/disciplines`, config);
+}
+
+export function getTeachersList(token: any) {
+	const config = makeConfig(token);
+	return axios.get(`${BASE_URL}/content/teachers`, config);
+}
+
+export function postNewProve(token: any, info: any) {
+	const config = makeConfig(token);
+	return axios.post(`${BASE_URL}/tests/create`, info, config);
+}

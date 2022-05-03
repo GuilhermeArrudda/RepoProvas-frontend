@@ -1,7 +1,8 @@
+import { LoadingButton } from "@mui/lab";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContainer from "../../Components/Container";
-import { Button, Buttons, Form, FormContainer, GitHubButton, Input, Line, StyledLink, Title } from "../../Components/Form";
+import { Buttons, Form, FormContainer, GitHubButton, Input, Line, StyledLink, Title } from "../../Components/Form";
 import { errorModal, successModal } from "../../factories/modal";
 import useAuth from "../../hooks/userContext";
 import * as authApi from "../../services/api"
@@ -103,9 +104,14 @@ function SignUp() {
 								<StyledLink to='/'>
 										Já possuo cadastro
 								</StyledLink>
-								<Button type='submit' disabled={isLoading}>
+								<LoadingButton 
+									type='submit' 
+									variant='contained'
+									disabled={isLoading}
+									loading={isLoading}
+									>
 										Cadastrar
-								</Button>
+								</LoadingButton>
 							</Buttons>
 						</Form>
 					</FormContainer>

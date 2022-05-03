@@ -1,7 +1,8 @@
+import { LoadingButton } from "@mui/lab";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContainer from "../../Components/Container";
-import { Button, Buttons, Form, FormContainer, Input, StyledLink, Title } from "../../Components/Form";
+import { Buttons, Form, FormContainer, Input, StyledLink, Title } from "../../Components/Form";
 import { errorModal, successModal } from "../../factories/modal";
 import useAuth from "../../hooks/userContext";
 import * as apiAuth from '../../services/api'
@@ -83,9 +84,14 @@ function Login() {
 							<StyledLink to='/sign-up'>
 								Não possuo cadastro
 							</StyledLink>
-							<Button type='submit' disabled={isLoading}>
+							<LoadingButton 
+								type='submit' 
+								variant='contained'
+								disabled={isLoading}
+								loading={isLoading}
+								>
 								ENTRAR
-							</Button>
+							</LoadingButton>
 						</Buttons>
 					</Form>
 				</FormContainer>
