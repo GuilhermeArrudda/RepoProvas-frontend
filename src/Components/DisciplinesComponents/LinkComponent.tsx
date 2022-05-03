@@ -1,6 +1,21 @@
 import { Box, Link, Typography } from "@mui/material";
+import { errorModal } from "../../factories/modal";
+import useAuth from "../../hooks/userContext";
+import * as api from "../../services/api"
 
-function LinkComponent({ tests }: any) {
+function LinkComponent({ tests, setUpdate }: any) {
+	const { user } = useAuth()
+
+	function updateViews(id: any) {
+		api.updateViews(user, id)
+			.then((response) => {
+				setUpdate(true)
+				setUpdate(false)
+			})
+			.catch((error) => {
+				errorModal(error)
+			})
+	}
 
 	return tests.map((t: any) => (
 		<Box
@@ -23,6 +38,7 @@ function LinkComponent({ tests }: any) {
 					underline='hover'
 					target='_blank'
 					rel='noopener'
+					onClick={() => updateViews(t.id)}
 				>
 					{t.name} - 
 					({t.teachersDisciplines.disciplines.name})
@@ -35,7 +51,7 @@ function LinkComponent({ tests }: any) {
 						color: '#808080'
 					}}
 				>
-					views
+					{t.views} views
 				</Typography>
 			</Box>
 	))

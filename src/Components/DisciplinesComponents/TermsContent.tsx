@@ -3,12 +3,13 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Link, Typography } 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import * as api from "../../services/api";
 import useAuth from "../../hooks/userContext";
+import { errorModal } from "../../factories/modal";
 
 function TermsContent({ setTermsContent, termsContent, search, discipline }: any) {
 	const [disciplinesContent, setDisciplinesContent] = useState([])
 	const [focus, setFocus] = useState(false)
 	const { user } = useAuth()
-
+	const [update, setUpdate] = useState(false)
 
 	const handleChange = (change: any) => (event: any, focus: boolean) => {
 		setFocus(focus ? change : false)
@@ -19,7 +20,7 @@ function TermsContent({ setTermsContent, termsContent, search, discipline }: any
 			.then((response) => {
 				setTermsContent(response.data)
 			})
-	}, [user, setTermsContent])
+	}, [user, setTermsContent, update])
 
 	function findDisciplines(id: any) {
 		api.getDisciplinesById(user, id)
@@ -27,8 +28,17 @@ function TermsContent({ setTermsContent, termsContent, search, discipline }: any
 				setDisciplinesContent(response.data)
 			})
 	}
-	console.log(termsContent)
 
+	function updateViews(id: any) {
+		api.updateViews(user, id)
+			.then((response) => {
+				setUpdate(true)
+				setUpdate(false)
+			})
+			.catch((error) => {
+				errorModal(error)
+			})
+	}
 
 	return (
 		<>
@@ -78,6 +88,7 @@ function TermsContent({ setTermsContent, termsContent, search, discipline }: any
 																underline='hover'
 																target='_blank'
 																rel='noopener'
+																onClick={() => updateViews(t.id)}
 																>
 																{t.name} - (
 																	{t.teachersDisciplines.teachers.name})
@@ -89,7 +100,7 @@ function TermsContent({ setTermsContent, termsContent, search, discipline }: any
 															fontFamily: 'Poppins',
 															color: '#808080'
 														}}>
-															views
+															{t.views} views
 														</Typography>
 														</Box>
 												))}
@@ -134,6 +145,7 @@ function TermsContent({ setTermsContent, termsContent, search, discipline }: any
 												underline='hover'
 												target='_blank'
 												rel='noopener'
+												onClick={() => updateViews(t.id)}
 												>
 													{t.name} - (
 														{t.teachersDisciplines.teachers.name}
@@ -146,7 +158,7 @@ function TermsContent({ setTermsContent, termsContent, search, discipline }: any
 														fontFamily: 'Poppins',
 														color: '#808080'
 													}}>
-														views
+															{t.views} views
 													</Typography>
 										</Box>
 									))}

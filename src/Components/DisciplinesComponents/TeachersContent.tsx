@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	Accordion,
 	AccordionSummary,
@@ -10,13 +10,14 @@ import AccordionDetailsComponent from './AccordionDetailsComponent';
 
 function TeachersContent({ teachersContent, setTeachersContent, search }: any) {
 	const { user } = useAuth();
+	const [update, setUpdate] = useState(false)
 
 	useEffect(() => {
 		api.getTeachersContent(user)
 			.then((response) => {
 			setTeachersContent(response.data);
 		});
-	}, [user, setTeachersContent]);
+	}, [user, setTeachersContent, update]);
 
 	return (
 		<>
@@ -28,6 +29,7 @@ function TeachersContent({ teachersContent, setTeachersContent, search }: any) {
 					</AccordionSummary>
 					<AccordionDetailsComponent
 						categoriesInfo={content.categories}
+						setUpdate={setUpdate}
 					/>
 					</Accordion>
 				))
@@ -40,6 +42,7 @@ function TeachersContent({ teachersContent, setTeachersContent, search }: any) {
 						</AccordionSummary>	
 						<AccordionDetailsComponent
 							categoriesInfo={content.categories}
+							setUpdate={setUpdate}
 						/>
 					</Accordion>
 				))}

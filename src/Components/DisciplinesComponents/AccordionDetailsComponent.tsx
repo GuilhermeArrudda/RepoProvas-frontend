@@ -1,7 +1,7 @@
 import { AccordionDetails } from "@mui/material"
 import LinkComponent from "./LinkComponent"
 
-function AccordionDetailsComponent({ categoriesInfo }: any) {
+function AccordionDetailsComponent({ categoriesInfo, setUpdate }: any) {
 	return (
 		categoriesInfo.map(
 			(category: any) => 
@@ -12,7 +12,7 @@ function AccordionDetailsComponent({ categoriesInfo }: any) {
 					>
 						{category.name}
 						<br/>
-						<LinkComponent tests={category.tests}/>
+						<LinkComponent tests={category.tests} setUpdate={setUpdate}/>
 					</AccordionDetails>
 				)
 		)

@@ -69,3 +69,8 @@ export function getDisciplinesById(token: any, id: any) {
 	const config = makeConfig(token);
 	return axios.get(`${BASE_URL}/content/disciplines/${id}`, config);
 }
+
+export function updateViews(token: any, id: any) {
+	const config = makeConfig(token)
+	return axios.patch(`${BASE_URL}/content/views/${id}`, {}, config)
+}
