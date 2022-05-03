@@ -10,6 +10,7 @@ function Login() {
 		const { user, login } = useAuth()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+		const [isLoading, setIsLoading] = useState(false)
 		let navigate = useNavigate()
 
 		useEffect(() => {
@@ -27,22 +28,26 @@ function Login() {
 			}
 
 			apiAuth.login(body)
-				.then(({ data }) => {
-					successModal('login realizado')
+			.then(({ data }) => {
+					setIsLoading(true)
+					successModal('Login was successful')
 					login(data)
 					navigate('/home')
 				})
-				.catch(({ request: status }) => {
-					registerError(status)
+				.catch(({ response }) => {
+					registerError(response.status)
+				})
+				.finally(() => {
+					setIsLoading(false)
 				})
 		}
 
-		function registerError(status: any) {
+		function registerError(status: number) {
 			const messageStatus = {
-				401: 'Senha incorreta!',
-				404: 'E-mail não encontrado',
-				422: 'Campo(s) inválido(s)!',
-				500: 'Erro com o servidor, tente novamente mais tarde, por favor'
+				401: 'Password incorrect!',
+				404: 'E-mail not found',
+				422: 'Invalid inputs!',
+				500: 'Error with server, try again later'
 			}
 
 			if(status === 401) {
@@ -78,7 +83,7 @@ function Login() {
 							<StyledLink to='/sign-up'>
 								Não possuo cadastro
 							</StyledLink>
-							<Button type='submit'>
+							<Button type='submit' disabled={isLoading}>
 								ENTRAR
 							</Button>
 						</Buttons>

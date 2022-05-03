@@ -5,4 +5,11 @@ const Container = styled.div`
 	margin: 0 auto;
 `
 
-export default Container;
+const Box = styled.div`
+	width: 94%;
+`
+
+export {
+	Container,
+	Box
+};

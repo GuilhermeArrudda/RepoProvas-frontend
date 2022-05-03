@@ -11,6 +11,7 @@ function SignUp() {
 		const [email, setEmail] = useState('')
 		const [password, setPassword] = useState('')
 		const [confirmPassword, setConfirmPassword] = useState("")
+		const [isLoading, setIsLoading] = useState(false)
 		let navigate = useNavigate()
 
 		useEffect(() => {
@@ -34,19 +35,23 @@ function SignUp() {
 
 			authApi.signUp(body)
 				.then(() => {
-					successModal('Cadastro realizado')
+					setIsLoading(true)
+					successModal('Sign-up was successful')
 					navigate('/')
 				})
-				.catch(({ request: status }) => {
-					registerError(status)
+				.catch(({ response }) => {
+					registerError(response.status)
+				})
+				.finally(() => {
+					setIsLoading(false)
 				})
 			}
 
-		function registerError(status: any) {
+		function registerError(status: number) {
 			const messageStatus = {
-				409: 'E-mail já cadastrado!',
-				422: 'Campo(s) inválido(s)!',
-				500: 'Erro com o servidor, tente novamente mais tarde, por favor'
+				409: 'Email is already in use!',
+				422: 'Invalid inputs',
+				500: 'Error with server, try again later'
 			}
 
 			if(status === 409) {
@@ -61,7 +66,7 @@ function SignUp() {
 		}
 
 		function handlerLoginWithGithub() {
-			alert('Essa funcionalidade ainda está em construção')
+			errorModal('Not yet implemented')
 		}
 
   return (
@@ -98,7 +103,7 @@ function SignUp() {
 								<StyledLink to='/'>
 										Já possuo cadastro
 								</StyledLink>
-								<Button type='submit'>
+								<Button type='submit' disabled={isLoading}>
 										Cadastrar
 								</Button>
 							</Buttons>
