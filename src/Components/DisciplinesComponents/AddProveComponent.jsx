@@ -49,10 +49,9 @@ function AddProveComponent({setValue}) {
 		handleInput(e);
 	}
 
-	function postNewProve(e) {
+	function postNewTest(e) {
 		e.preventDefault()
-
-		api.postNewProve(user, { ...info })
+		api.postNewTest(user, { ...info })
 		.then((response) => {
 			setIsLoading(true)
 			setIsDisabled(true)
@@ -68,7 +67,7 @@ function AddProveComponent({setValue}) {
 	}
 
 	return (
-		<Form onSubmit={postNewProve}>
+		<Form onSubmit={postNewTest}>
 			<TextField
 				required
 				name='name'

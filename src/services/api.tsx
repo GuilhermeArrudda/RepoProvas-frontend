@@ -55,7 +55,7 @@ export function getTeachersList(token: any) {
 	return axios.get(`${BASE_URL}/content/teachers`, config);
 }
 
-export function postNewProve(token: any, info: any) {
+export function postNewTest(token: any, info: any) {
 	const config = makeConfig(token);
 	return axios.post(`${BASE_URL}/tests/create`, info, config);
 }
