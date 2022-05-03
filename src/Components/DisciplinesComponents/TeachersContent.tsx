@@ -1,62 +1,49 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
 	Accordion,
-	AccordionDetails,
 	AccordionSummary,
-	Link
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import * as api from "../../services/api"
 import useAuth from '../../hooks/userContext';
+import AccordionDetailsComponent from './AccordionDetailsComponent';
 
-function TeachersContent() {
-	const [content, setContent] = useState([]);
+function TeachersContent({ teachersContent, setTeachersContent, search }: any) {
 	const { user } = useAuth();
 
 	useEffect(() => {
 		api.getTeachersContent(user)
 			.then((response) => {
-			setContent(response.data);
+			setTeachersContent(response.data);
 		});
-	}, [user]);
+	}, [user, setTeachersContent]);
 
 	return (
 		<>
-			{content.map((content: any) => (
-				<Accordion key={content.id}>
+			{search !== '' ? 
+				teachersContent.filter((t: any) => t.teacherName === search).map((content: any) => (
+					<Accordion key={content.id}>
 					<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-						{content.instructorName}
+						{content.teacherName}
 					</AccordionSummary>
-					{content.categories.map(
-						(category: any) =>
-							category.tests.length !== 0 && (
-								<AccordionDetails sx={{ px: 4 }} key={category.id}>
-									{category.name}
-									<br />
-									{category.tests.map((test: any) => (
-										<Link
-											sx={{
-												fontSize: 14,
-												fontFamily: 'Poppins',
-												color: '#808080',
-												cursor:'pointer'
-											}}
-											key={category.id}
-											href={test.pdfUrl}
-											underline='hover'
-											target='_blank'
-										>
-											{test.name} - (
-											{test.teachersDisciplines.disciplines.name})
-										</Link>
-									))}
-								</AccordionDetails>
-							)
-					)}
-				</Accordion>
-			))}
-		</>
-	);
+					<AccordionDetailsComponent
+						categoriesInfo={content.categories}
+					/>
+					</Accordion>
+				))
+				: teachersContent.map((content: any) => (
+					<Accordion key={content.id}>
+						<AccordionSummary
+							expandIcon={<ExpandMoreIcon/>}
+						>
+							{content.teacherName}
+						</AccordionSummary>	
+						<AccordionDetailsComponent
+							categoriesInfo={content.categories}
+						/>
+					</Accordion>
+				))}
+				</>
+	)
 }
-
 export default TeachersContent;
